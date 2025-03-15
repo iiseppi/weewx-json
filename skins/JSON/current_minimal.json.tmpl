@@ -1,44 +1,64 @@
-{
-    "station":
-    {
-        "location": "$station.location",
-        "latitude": $station.stn_info.latitude_f,
-        "longitude": $station.stn_info.longitude_f,
-        "altitude (meters)": $station.altitude.meter.raw,
-        "link": "$station.station_url"
-    },
-    "generation":
-    {
-        #if $Extras.timestamp_fmt == "human"
-        "time": "$current.dateTime.format("%a, %d %b %Y %H:%M:%S %Z")",
-        #else
-        "time": "$current.dateTime.format("%Y-%m-%dT%H:%M:%S%z")",
-        #end if
-        "generator": "weewx $station.version"
-    },
-    "current":
-    {
+<WeatherCatData>
+    <Station>
+        <Location>$station.location</Location>
+        <Latitude>$station.stn_info.latitude_f</Latitude>
+        <Longitude>$station.stn_info.longitude_f</Longitude>
+        <Altitude_meters>$station.altitude.meter.raw</Altitude_meters>
+        <Link>$station.station_url</Link>
+    </Station>
+    <Generation>
+        <Time>
+            #if $Extras.timestamp_fmt == "human"
+            $current.dateTime.format("%a, %d %b %Y %H:%M:%S %Z")
+            #else
+            $current.dateTime.format("%Y-%m-%dT%H:%M:%S%z")
+            #end if
+        </Time>
+        <Generator>weewx $station.version</Generator>
+    </Generation>
+    <Current>
         #if $current.outTemp.has_data
-        "temperature": {"value": $current.outTemp.raw, "units": "$current.outTemp.format(" ").lstrip()"},
+        <Temperature>
+            <Value>$current.outTemp.raw</Value>
+            <Units>$current.outTemp.format(" ").lstrip()</Units>
+        </Temperature>
         #end if
         #if $current.outHumidity.has_data
-        "humidity": {"value": $current.outHumidity.raw, "units": "$current.outHumidity.format(" ").lstrip()"},
+        <Humidity>
+            <Value>$current.outHumidity.raw</Value>
+            <Units>$current.outHumidity.format(" ").lstrip()</Units>
+        </Humidity>
         #end if
         #if $current.barometer.has_data
-        "barometer": {"value": $current.barometer.raw, "units": "$current.barometer.format(" ").lstrip()"},
+        <Barometer>
+            <Value>$current.barometer.raw</Value>
+            <Units>$current.barometer.format(" ").lstrip()</Units>
+        </Barometer>
         #end if
         #if $current.windSpeed.has_data
-        "wind speed": {"value": $current.windSpeed.raw, "units": "$current.windSpeed.format(" ").lstrip()"},
+        <WindSpeed>
+            <Value>$current.windSpeed.raw</Value>
+            <Units>$current.windSpeed.format(" ").lstrip()</Units>
+        </WindSpeed>
         #end if
         #if $current.windGust.has_data
-        "wind gust": {"value": $current.windGust.raw, "units": "$current.windGust.format(" ").lstrip()"},
+        <WindGust>
+            <Value>$current.windGust.raw</Value>
+            <Units>$current.windGust.format(" ").lstrip()</Units>
+        </WindGust>
         #end if
         #if $current.windDir.has_data
-        "wind direction": {"value": $current.windDir.raw, "units": "$current.windDir.format(" ").lstrip()"},
+        <WindDirection>
+            <Value>$current.windDir.raw</Value>
+            <Units>$current.windDir.format(" ").lstrip()</Units>
+        </WindDirection>
         #end if
         #if $current.rainRate.has_data
-        "rain rate": {"value": $current.rainRate.raw, "units": "$current.rainRate.format(" ").lstrip()"},
+        <RainRate>
+            <Value>$current.rainRate.raw</Value>
+            <Units>$current.rainRate.format(" ").lstrip()</Units>
+        </RainRate>
         #end if
-        "void_end": null
-    }
-}
+        <VoidEnd>null</VoidEnd>
+    </Current>
+</WeatherCatData>
